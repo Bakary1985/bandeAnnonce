@@ -5,7 +5,7 @@ class SearchBar extends Component {
 	constructor(props){
 		super(props)
 
-		this.state ={ placeHolder:"Veuillez taper votre film", searchText:"" }
+		this.state ={ placeHolder:"Veuillez taper votre film s'ilcvous plait", searchText:"" }
 	}
 
 	handleChange =(e)=>{
