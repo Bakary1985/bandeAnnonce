@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import  '../style/style.css';
 
 class SearchBar extends Component {
 	constructor(props){
@@ -13,8 +13,10 @@ class SearchBar extends Component {
 	}
 	render() {
 		return (
-			<div className="SearchBar">
-				<input onChange={this.handleChange} placeholder={this.state.placeHolder} />
+			<div className="row">
+				<div className="col-md-8">
+					<input type="text" className="form-control input-lg" onChange={this.handleChange} placeholder={this.state.placeHolder} />
+				</div>
 			</div>
 		);
 	}

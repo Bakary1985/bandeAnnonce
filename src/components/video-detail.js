@@ -6,7 +6,7 @@ class VideoDetail extends Component{
 		const description = this.props.description;
 		return(
 			<div>
-				<h1>{ title } </h1>
+				<h5 className="block_titre">{ title } </h5>
 				<p>{ description } </p>
 			</div>
 		)

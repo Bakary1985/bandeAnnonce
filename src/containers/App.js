@@ -3,20 +3,12 @@ import SearchBar from '../components/search-bar';
 import VideoList from './video-list';
 import axios from 'axios';
 import VideoDetail from '../components/video-detail';
+import Video from '../components/video';
+import  '../style/style.css';
 
 const API_END_POINT = "https://api.themoviedb.org/3/"
-const POPULAR_MOVIES_URL = "discover/movie?language=fr&sort_by=popularity.desc&include_adult=false&append_to_response=images"
+const POPULAR_MOVIES_URL = "discover/movie?language=fr&sort_by=popularity.desc&include_adult=true&append_to_response=images"
 const API_KEY = "api_key=756d58e436956983626c7160fc931e60"
-
-//import _ from 'lodash'
-//import SearchBar from '../components/search-bar'
-//import MovieVideo from '../components/movie-video'
-//import MovieList from './movie-list'
-
-//const API_END_POINT = "https://api.themoviedb.org/3/";
-//const API_KEY = "756d58e436956983626c7160fc931e60";
-//const DEFAULT_TYPE_SEARCH ="discover";
-//const DEFAULT_PARAM = "language=fr&include_adult=false";
 
 class App extends Component {
 	constructor(props){
@@ -41,26 +33,43 @@ class App extends Component {
 
 	applyVideoToCurrentMovie(){
 		//https://api.themoviedb.org/3/movie/[id]?api_key=votreClé&append_to_response=videos&include_adult=false
-    	axios.get(`${API_END_POINT}movie/${this.state.currentMovie.id}?${API_KEY}&append_to_response=videos&include_adult=false`).then(function(response){	
-			console.log("/////////////")
-			console.log(response)
-			console.log("///////////")
+    	axios.get(`${API_END_POINT}movie/${this.state.currentMovie.id}?${API_KEY}&append_to_response=videos&include_adult=true`).then(function(response){	
+
+			const youtubekey = response.data.videos.results[0].key;
+			
+			let newcurrentMovieState = this.state.currentMovie;
+			newcurrentMovieState.videoId = youtubekey;
+			this.setState({currentMovie : newcurrentMovieState});
 		}.bind(this)); 
     }
 
-
+    receiveCallBack(movie){
+    	this.setState({currentMovie:movie}, function(){
+    		this.applyVideoToCurrentMovie();
+    	});
+    }
 
 	render() {
 		const renderVideoList = () =>{
 			if (this.state.movieList.length >= 5) {
-				return <VideoList 	movieList={this.state.movieList}/>
+				return <VideoList 	movieList={this.state.movieList} callback={this.receiveCallBack.bind(this)}/>
 			}
 		}
 	    return (
-	      	<div className="App">
-	        	<SearchBar />
-	        	{renderVideoList()}
-	        	<VideoDetail title={this.state.currentMovie.title} description={this.state.currentMovie.overview} />
+	      	<div >
+	      	<div className="Search_bar">
+	      		<SearchBar/>
+	      	</div>
+	      	<div className="row">
+	      		<div className="col-md-8">
+	      			<Video videoId={this.state.currentMovie.videoId} />
+	      			<VideoDetail title={this.state.currentMovie.title} description={this.state.currentMovie.overview} />
+	      		</div> 
+	      		<div className="col-md-4">   	
+	        		{renderVideoList()}
+	        	</div>
+	        </div>
+	        	
 	      	</div>
 	    );
 	}
