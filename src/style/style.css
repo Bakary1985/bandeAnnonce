@@ -1,0 +1,42 @@
+.Search_bar{
+	    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.block_input_search{
+	width: 92%;
+}
+p{
+	font-size: 10px;
+}
+li{
+	list-style: none;
+}
+
+.col-md-4{
+	padding: 0;
+	margin: 0;
+}
+#root{
+	margin-left: 10px;
+}
+
+#block_left{
+	padding-bottom: 10px;
+	border: 1px solid #ccc;
+}
+
+#block_left .media-left{
+	padding: 10px;
+}
+.Search_bar .row .form-control{
+	padding: 0px;
+}
+
+li:hover{
+	background-color: #e0e0e0;
+}
+.title_list_item{
+	padding-top: 40px;
+	text-align: center;
+}
